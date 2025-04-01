@@ -1,18 +1,27 @@
 {
   "name": "Hirely",
-  "version": "0.0.1",
-  "description": "Find and save job listings with an elegant professional interface",
+  "version": "0.0.2",
+  "description": "Find and auto-apply to job listings with an elegant professional interface",
   "manifest_version": 3,
   "action": {
     "default_popup": "popup.html",
-    "default_icon": "logo.png"
+    "default_icon": "logo.png",
+    "default_popup_width":400,
+    "default_popup_height":500
   },
   "icons": {
     "16": "logo.png",
     "48": "logo.png",
     "128": "logo.png"
   },
-  "permissions": ["activeTab", "storage"],
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self';"
   },
@@ -20,6 +29,12 @@
     {
       "resources": ["assets/css/tailwind.min.css"],
       "matches": ["<all_urls>"]
+    }
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
     }
   ]
 }
